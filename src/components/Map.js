@@ -1,9 +1,10 @@
-import React, { useRef } from 'react';
+import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import { Map as BaseMap, TileLayer, ZoomControl } from 'react-leaflet';
 
 import { useConfigureLeaflet, useMapServices, useRefEffect } from 'hooks';
 import { isDomAvailable } from 'lib/util';
+import useInterval from "../hooks/useInterval";
 
 const DEFAULT_MAP_SERVICE = 'OpenStreetMap';
 
@@ -14,10 +15,17 @@ const Map = ( props ) => {
 
   useConfigureLeaflet();
 
+  const useRefEffect = ({ effect, ref = {} }) => {
+    useEffect(() => {
+      effect( ref.current );
+    }, [ref]);
+  };
   useRefEffect({
     ref: mapRef,
     effect: mapEffect,
   });
+
+  // useInterval(()  =>  mapEffect(mapRef.current),10000);
 
   const services = useMapServices({
     names: [...new Set([defaultBaseMap, DEFAULT_MAP_SERVICE])],

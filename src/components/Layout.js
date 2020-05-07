@@ -6,6 +6,7 @@ import 'assets/stylesheets/application.scss';
 
 import Header from 'components/Header';
 import Footer from 'components/Footer';
+import Section from "./Section";
 
 const Layout = ({ children, pageName }) => {
   let className = '';
@@ -15,16 +16,18 @@ const Layout = ({ children, pageName }) => {
   }
 
   return (
-    <>
-      <Helmet bodyAttributes={{ class: className }}>
-        <title>Gatsby Site</title>
-      </Helmet>
-      <div className="wrapper">
-        <Header />
-        <main>{ children }</main>
-        <Footer />
-      </div>
-    </>
+      <>
+          <Helmet bodyAttributes={{ class: className }}>
+              <title>Gatsby Site</title>
+          </Helmet>
+          <div className="wrapper">
+              <Header />
+              <div className="main-screen">
+                  <Section />
+                  <main className="main">{children}</main>
+              </div>
+          </div>
+      </>
   );
 };
 
